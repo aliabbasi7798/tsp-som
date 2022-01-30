@@ -8,3 +8,16 @@ def generate_network(size):
     Return a vector of two dimensional points in the interval [0,1].
     """
     return np.random.rand(size, 2)
+def get_neighborhood(center, radix, domain):
+    """Get the range gaussian of given radix around a center index."""
+
+    # Impose an upper bound on the radix to prevent NaN and blocks
+    if radix < 1:
+        radix = 1
+
+    # Compute the circular network distance to the center
+    deltas = np.absolute(center - np.arange(domain))
+    distances = np.minimum(deltas, domain - deltas)
+
+    # Compute Gaussian distribution around the given center
+    return np.exp(-(distances*distances) / (2*(radix*radix)))
