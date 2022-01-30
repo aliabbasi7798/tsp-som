@@ -21,3 +21,10 @@ def get_neighborhood(center, radix, domain):
 
     # Compute Gaussian distribution around the given center
     return np.exp(-(distances*distances) / (2*(radix*radix)))
+def get_route(cities, network):
+    """Return the route computed by a network."""
+    cities['winner'] = cities[['x', 'y']].apply(
+        lambda c: select_closest(network, c),
+        axis=1, raw=True)
+
+    return cities.sort_values('winner').index
