@@ -14,7 +14,7 @@ def main():
 
     problem = read_tsp(argv[1])
 
-    route = som(problem, 100000)
+    route = som(problem, 10000)
 
     problem = problem.reindex(route)
 
